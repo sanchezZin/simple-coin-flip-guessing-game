@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coin Flip Game</title>
+    <style>
+
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+            font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif
+        }
+      
+        body {
+           
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-color: #101010;
+            gap: 0.5rem;
+        }
+
+        button {
+            padding: 1.3rem 1.2rem;
+            color: #000;
+            background: #f0e5e5;
+            border-radius: 1rem;
+            border: 2px solid white;
+            font-size: 1.2rem;
+            width: 10em;
+        }
+        
+    </style>
+</head>
+<body>
+
+  
+      
+            <button onclick="
+                
+                console.log(result);
+                result === 'heads' ? alert('You guessed it!') : alert('You did not guessed it!');
+                randomNumber = Math.random();
+
+                result = randomNumber > 0.5 ? 'heads' : 'tails';
+                
+                ">Heads</button>
+            <button onclick="
+
+            console.log(result);
+              result === 'tails' ? alert('You guessed it!') : alert('You did not guessed it!');
+                randomNumber = Math.random();
+
+                result = randomNumber > 0.5 ? 'heads' : 'tails';
+
+            ">Tails</button>
+    
+  
+    
+    <script>
+        let randomNumber = Math.random();
+        let result = randomNumber > 0.5 ? 'heads' : 'tails';
+    
+
+    </script>
+
+</body>
+</html>
