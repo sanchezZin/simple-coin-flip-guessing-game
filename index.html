@@ -12,6 +12,11 @@
             box-sizing: border-box;
             font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif
         }
+
+        h1 {
+            color: white;
+            margin-bottom: 1.5rem;
+        }
       
         body {
            
@@ -20,6 +25,7 @@
             justify-content: center;
             height: 100vh;
             background-color: #101010;
+            flex-direction: column;
             gap: 0.5rem;
         }
 
@@ -37,32 +43,99 @@
 </head>
 <body>
 
-  
-      
-            <button onclick="
+    <h1 id="guess-result"></h1>
+    <h1 class="heading1" id="heading-1">Wins: </h1>
+    <h1 class="heading2" id="heading-2">Losses: </h1>
+       <div class="button-container">
+        <button onclick="
                 
-                console.log(result);
-                result === 'heads' ? alert('You guessed it!') : alert('You did not guessed it!');
-                randomNumber = Math.random();
+                playGame('heads');
+        
+        ">Heads</button>
+    <button onclick="
 
-                result = randomNumber > 0.5 ? 'heads' : 'tails';
-                
-                ">Heads</button>
-            <button onclick="
+playGame('tails');
 
-            console.log(result);
-              result === 'tails' ? alert('You guessed it!') : alert('You did not guessed it!');
-                randomNumber = Math.random();
+    ">Tails</button>
+       </div>
 
-                result = randomNumber > 0.5 ? 'heads' : 'tails';
-
-            ">Tails</button>
+       <button onclick="resetGame()">Reset Game</button>
+          
     
   
     
     <script>
-        let randomNumber = Math.random();
-        let result = randomNumber > 0.5 ? 'heads' : 'tails';
+
+        // Object
+        // Player Object
+        const player = JSON.parse(localStorage.getItem('score')) || {
+            wins: 0,
+            losses: 0,
+        };
+
+        let heading1 = document.getElementById('heading-1');   
+        let heading2 = document.getElementById('heading-2');
+        heading1.innerHTML = `Wins: ${player['wins']}`;
+        heading2.innerHTML = `Losses: ${player['losses']}`;
+
+        // GUESSING DISPLAY TEXT
+        let guessHeading = document.getElementById('guess-result');
+
+        // A function that plays the game
+        // Adds a parameter [guess] a value that which choose either heads or tails
+        function playGame(guess) {
+
+            let result = getResult(); // Gets the result either heads or tails
+
+
+            if(guess === result) {
+                 // Display a text (guessed or not)
+                 guessHeading.innerHTML = "YOU GUESSED IT!";
+                player['wins']++;
+            }
+
+            else {
+                 // Display a text (guessed or not)
+                 guessHeading.innerHTML = "LOSE! TRY AGAIN";
+                player['losses']++;
+            }
+
+            heading1 = document.getElementById('heading-1');
+            heading2 = document.getElementById('heading-2');
+            heading1.innerHTML = `Wins: ${player['wins']}`;
+            heading2.innerHTML = `Losses: ${player['losses']}`;
+
+           
+            // Save to local storage
+            localStorage.setItem('score', JSON.stringify(player));
+
+        }
+
+        // A method that gets the value generated either heads or tails
+        function getResult() {
+            return Math.random() > 0.5 ? 'heads' : 'tails';
+        }
+
+        // A function that resets the game
+        function resetGame() {
+
+            // Resets the score
+            player['wins'] = 0;
+            player['losses'] = 0;
+
+
+            heading1 = document.getElementById('heading-1');
+            heading2 = document.getElementById('heading-2');
+            heading1.innerHTML = `Wins: ${player['wins']}`;
+            heading2.innerHTML = `Losses: ${player['losses']}`;
+
+            // Display empty
+            guessHeading.innerHTML = "";
+
+            // DELETE ITEM IN LOCAL STORAGE
+            localStorage.removeItem('score');
+
+        }
     
 
     </script>
